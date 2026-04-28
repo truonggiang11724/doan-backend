@@ -26,7 +26,8 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
-          npx prisma generate
+          npx prisma generate --schema=./prisma/schema.prisma
+          ls -la node_modules/.prisma
           npm run build --if-present
           # npm run test --if-present
 
