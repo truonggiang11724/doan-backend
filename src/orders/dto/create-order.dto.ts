@@ -13,14 +13,14 @@ import { CreateOrderItemDto } from './create-order-item.dto';
 export class CreateOrderDto {
   @ApiPropertyOptional({
     example: 1,
-    description: 'Customer placing the order',
+    description: 'Customer placing the order (optional if authenticated)',
   })
   @IsOptional()
   @Type(() => Number)
   @IsNumber()
   customer_id?: number;
 
-  @ApiPropertyOptional({ example: 3, description: 'Shipping address ID' })
+  @ApiPropertyOptional({ example: 3, description: 'Shipping address ID from customer_addresses table' })
   @IsOptional()
   @Type(() => Number)
   @IsNumber()

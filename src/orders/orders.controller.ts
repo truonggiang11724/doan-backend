@@ -42,17 +42,18 @@ export class OrdersController {
       example1: {
         value: {
           customer_id: 1,
-          shipping_address_id: 1,
+          address_id: 1,
+          total_amount: 234.97,
+          order_status: 'PENDING',
           items: [
             {
-              product_id: 5,
-              variant_id: 10,
+              variant_id: 5,
               quantity: 2,
               unit_price: 99.99,
+              render_id: 10,
             },
           ],
-          shipping_method: 'standard',
-          payment_method: 'credit_card',
+          payment_method: 'COD',
         },
       },
     },
@@ -64,13 +65,20 @@ export class OrdersController {
       order_id: 100,
       order_number: 'ORD-2024-00100',
       customer_id: 1,
-      status: 'pending',
-      items_count: 2,
-      subtotal: 199.98,
-      shipping: 15.00,
-      tax: 19.99,
+      address_id: 1,
+      order_status: 'PENDING',
+      payment_status: 'UNPAID',
       total_amount: 234.97,
       created_at: '2024-01-15T10:30:00Z',
+      order_items: [
+        {
+          order_item_id: 1,
+          variant_id: 5,
+          quantity: 2,
+          unit_price: 99.99,
+          render_id: 10,
+        },
+      ],
     },
   })
   @ApiResponse({
@@ -108,10 +116,11 @@ export class OrdersController {
         {
           order_id: 100,
           order_number: 'ORD-2024-00100',
-          status: 'delivered',
+          order_status: 'DELIVERED',
+          payment_status: 'PAID',
           total_amount: 234.97,
-          items_count: 2,
           created_at: '2024-01-15T10:30:00Z',
+          items_count: 2,
         },
       ],
       total: 10,
@@ -149,29 +158,33 @@ export class OrdersController {
       order_id: 100,
       order_number: 'ORD-2024-00100',
       customer_id: 1,
-      status: 'delivered',
-      items: [
+      address_id: 1,
+      order_status: 'DELIVERED',
+      payment_status: 'PAID',
+      total_amount: 234.97,
+      created_at: '2024-01-15T10:30:00Z',
+      order_items: [
         {
           order_item_id: 1,
-          product_id: 5,
-          product_name: 'Classic T-Shirt',
-          variant_id: 10,
+          variant_id: 5,
           quantity: 2,
           unit_price: 99.99,
-          total_price: 199.98,
+          render_id: 10,
+          product_name: 'Classic T-Shirt',
+          variant_details: {
+            color: 'Blue',
+            size: 'M',
+          },
         },
       ],
       shipping_address: {
-        street: '123 Main St',
-        city: 'City',
-        country: 'Vietnam',
+        receiver_name: 'John Doe',
+        phone: '0123456789',
+        address_detail: '123 Main St, District 1',
+        ward_name: 'Ward 1',
+        district_name: 'District 1',
+        province_name: 'Ho Chi Minh City',
       },
-      subtotal: 199.98,
-      shipping: 15.00,
-      tax: 19.99,
-      total_amount: 234.97,
-      payment_status: 'completed',
-      created_at: '2024-01-15T10:30:00Z',
     },
   })
   @ApiResponse({
@@ -199,7 +212,7 @@ export class OrdersController {
     examples: {
       example1: {
         value: {
-          status: 'processing',
+          order_status: 'PROCESSING',
         },
       },
     },
@@ -209,7 +222,7 @@ export class OrdersController {
     description: 'Order updated successfully',
     example: {
       order_id: 100,
-      status: 'processing',
+      order_status: 'PROCESSING',
       updated_at: '2024-01-15T11:00:00Z',
     },
   })

@@ -53,15 +53,15 @@ export class CartController {
     example: {
       cart_id: 1,
       customer_id: 1,
-      items: [
+      cart_items: [
         {
           cart_item_id: 1,
-          product_id: 5,
           variant_id: 10,
           quantity: 2,
-          unit_price: 99.99,
+          render_id: 1,
         },
       ],
+      message: 'Item added to cart successfully',
     },
   })
   @ApiResponse({
@@ -93,19 +93,23 @@ export class CartController {
     example: {
       cart_id: 1,
       customer_id: 1,
-      items: [
+      updated_at: '2024-01-15T10:30:00Z',
+      cart_items: [
         {
           cart_item_id: 1,
-          product_id: 5,
           variant_id: 10,
           quantity: 2,
-          unit_price: 99.99,
-          product_name: 'T-Shirt Classic',
-          variant_name: 'Size M - Blue',
+          render_id: 1,
+          product_name: 'Classic T-Shirt',
+          variant_details: {
+            color: 'Blue',
+            size: 'M',
+            price: 99.99,
+          },
         },
       ],
-      total_price: 199.98,
-      created_at: '2024-01-15T10:30:00Z',
+      total_items: 2,
+      total_amount: 199.98,
     },
   })
   @ApiResponse({

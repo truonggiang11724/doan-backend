@@ -13,8 +13,7 @@ export class UpdateUserDto {
     description: 'User phone number',
   })
   @IsOptional()
-  @MinLength(10)
-  @MaxLength(10)
+  @IsString()
   phone?: string;
 
   @ApiProperty({

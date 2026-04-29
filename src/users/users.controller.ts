@@ -39,11 +39,15 @@ export class UsersController {
     description: 'Returns the currently authenticated user profile',
     example: {
       user_id: 1,
+      username: 'johndoe',
       email: 'user@example.com',
       full_name: 'John Doe',
-      phone_number: '0123456789',
-      role: 'customer',
+      phone: '0123456789',
+      avatar_url: '/uploads/avatar.jpg',
+      role: 'CUSTOMER',
+      status: 'active',
       created_at: '2024-01-15T10:30:00Z',
+      updated_at: '2024-01-15T11:00:00Z',
     },
   })
   @ApiResponse({
@@ -72,8 +76,10 @@ export class UsersController {
     examples: {
       example1: {
         value: {
+          username: 'janedoe',
           full_name: 'Jane Doe',
-          phone_number: '0987654321',
+          phone: '0987654321',
+          avatar_url: '/uploads/new-avatar.jpg',
         },
       },
     },
@@ -83,9 +89,13 @@ export class UsersController {
     description: 'Profile updated successfully',
     example: {
       user_id: 1,
+      username: 'janedoe',
       email: 'user@example.com',
       full_name: 'Jane Doe',
-      phone_number: '0987654321',
+      phone: '0987654321',
+      avatar_url: '/uploads/new-avatar.jpg',
+      role: 'CUSTOMER',
+      status: 'active',
       updated_at: '2024-01-15T11:00:00Z',
     },
   })

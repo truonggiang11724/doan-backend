@@ -35,10 +35,11 @@ export class AuthController {
     examples: {
       example1: {
         value: {
+          username: 'johndoe',
           email: 'user@example.com',
           password: 'SecurePassword123!',
           full_name: 'John Doe',
-          phone_number: '0123456789',
+          phone: '0123456789',
         },
       },
     },
@@ -49,8 +50,13 @@ export class AuthController {
     example: {
       user: {
         user_id: 1,
+        username: 'johndoe',
         email: 'user@example.com',
         full_name: 'John Doe',
+        phone: '0123456789',
+        role: 'CUSTOMER',
+        status: 'active',
+        created_at: '2024-01-15T10:30:00Z',
       },
       access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
     },
@@ -90,9 +96,12 @@ export class AuthController {
     example: {
       user: {
         user_id: 1,
+        username: 'johndoe',
         email: 'user@example.com',
         full_name: 'John Doe',
-        role: 'customer',
+        phone: '0123456789',
+        role: 'CUSTOMER',
+        status: 'active',
       },
       access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
     },

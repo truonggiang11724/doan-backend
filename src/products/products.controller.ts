@@ -37,12 +37,28 @@ export class ProductsController {
     examples: {
       example1: {
         value: {
-          name: 'Classic T-Shirt',
+          product_name: 'Classic T-Shirt',
           description: 'High quality cotton t-shirt',
           category_id: 1,
           seller_id: 5,
-          base_price: 99.99,
-          stock: 50,
+          status: 'active',
+          product_variants: [
+            {
+              sku: 'TS-BLUE-M',
+              color: 'Blue',
+              size: 'M',
+              price: 99.99,
+              stock_quantity: 50,
+              image_url: '/uploads/variant-1.jpg',
+            },
+          ],
+          product_media: [
+            {
+              media_url: '/uploads/product-1-main.jpg',
+              media_type: 'image',
+              is_primary: true,
+            },
+          ],
         },
       },
     },
@@ -52,12 +68,12 @@ export class ProductsController {
     description: 'Product created successfully',
     example: {
       product_id: 10,
-      name: 'Classic T-Shirt',
+      product_name: 'Classic T-Shirt',
       category_id: 1,
       seller_id: 5,
-      base_price: 99.99,
-      stock: 50,
+      status: 'active',
       created_at: '2024-01-15T10:30:00Z',
+      updated_at: '2024-01-15T10:30:00Z',
     },
   })
   @ApiResponse({
@@ -104,12 +120,23 @@ export class ProductsController {
       data: [
         {
           product_id: 10,
-          name: 'Classic T-Shirt',
+          product_name: 'Classic T-Shirt',
           category_id: 1,
-          base_price: 99.99,
-          stock: 50,
+          seller_id: 5,
+          status: 'active',
           rating: 4.5,
           review_count: 25,
+          variants: [
+            {
+              variant_id: 1,
+              sku: 'TS-BLUE-M',
+              color: 'Blue',
+              size: 'M',
+              price: 99.99,
+              stock_quantity: 20,
+            },
+          ],
+          created_at: '2024-01-15T10:30:00Z',
         },
       ],
       total: 100,
@@ -142,30 +169,34 @@ export class ProductsController {
     description: 'Product details retrieved successfully',
     example: {
       product_id: 10,
-      name: 'Classic T-Shirt',
+      product_name: 'Classic T-Shirt',
       description: 'High quality cotton t-shirt',
       category_id: 1,
       seller_id: 5,
-      base_price: 99.99,
-      stock: 50,
+      status: 'active',
       rating: 4.5,
       review_count: 25,
-      variants: [
+      product_variants: [
         {
           variant_id: 1,
-          size: 'M',
+          sku: 'TS-BLUE-M',
           color: 'Blue',
-          stock: 20,
+          size: 'M',
+          price: 99.99,
+          stock_quantity: 20,
+          image_url: '/uploads/variant-1.jpg',
         },
       ],
-      images: [
+      product_media: [
         {
           media_id: 1,
-          url: '/uploads/product-1-1.jpg',
+          media_url: '/uploads/product-1-main.jpg',
+          media_type: 'image',
           is_primary: true,
         },
       ],
       created_at: '2024-01-15T10:30:00Z',
+      updated_at: '2024-01-15T10:30:00Z',
     },
   })
   @ApiResponse({
@@ -193,9 +224,8 @@ export class ProductsController {
     examples: {
       example1: {
         value: {
-          name: 'Classic T-Shirt Premium',
-          base_price: 119.99,
-          stock: 100,
+          product_name: 'Classic T-Shirt Premium',
+          status: 'active',
         },
       },
     },
