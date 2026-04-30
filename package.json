@@ -6,8 +6,8 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "node node_modules/prisma/build/index.js generate && nest build",
-    "start": "chmod -R 755 node_modules/.prisma && node dist/main.js",
+    "build": "node node_modules/prisma/build/index.js generate && node node_modules/typescript/bin/tsc",
+    "start": "node dist/main.js",
     "prisma:generate": "npx prisma generate",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start:dev": "nest start --watch",
