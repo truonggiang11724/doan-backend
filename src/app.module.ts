@@ -18,6 +18,7 @@ import { UploadModule } from './upload/upload.module';
 import { AddressesModule } from './addresses/addresses.module';
 import { MockupsModule } from './mockups/mockups.module';
 import { RefundsModule } from './refunds/refunds.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { RefundsModule } from './refunds/refunds.module';
     AddressesModule,
     MockupsModule,
     RefundsModule,
+    ChatModule,
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), 'uploads'),
       serveRoot: '/uploads',
