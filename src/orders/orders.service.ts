@@ -153,4 +153,23 @@ export class OrdersService {
       orderBy: { created_at: 'desc' },
     });
   }
+
+  async receive(orderId: number) {
+    const order = await this.prisma.orders.findUnique({
+      where: { order_id: orderId },
+    });
+
+    if (!order) {
+      throw new Error('Order not found');
+    }
+
+    if (order.order_status !== 'Delivered') {
+      throw new Error('Order must be in Delivered status to receive');
+    }
+
+    return this.prisma.orders.update({
+      where: { order_id: orderId },
+      data: { order_status: 'Received' },
+    });
+  }
 }

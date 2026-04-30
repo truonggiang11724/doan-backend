@@ -272,4 +272,36 @@ export class OrdersController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.ordersService.remove(id);
   }
+
+  @Put(':id/receive')
+  @ApiOperation({
+    summary: 'Mark order as received',
+    description: 'Update order status to Received when customer confirms delivery.',
+  })
+  @ApiParam({
+    name: 'id',
+    type: Number,
+    description: 'Order ID',
+    example: 100,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Order marked as received',
+    example: {
+      order_id: 100,
+      order_status: 'Received',
+      updated_at: '2024-01-15T12:00:00Z',
+    },
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request - order not in Delivered status',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Order not found',
+  })
+  receive(@Param('id', ParseIntPipe) id: number) {
+    return this.ordersService.receive(id);
+  }
 }
