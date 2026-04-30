@@ -1,0 +1,718 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace.js";
+export type customer_addressesModel = runtime.Types.Result.DefaultSelection<Prisma.$customer_addressesPayload>;
+export type AggregateCustomer_addresses = {
+    _count: Customer_addressesCountAggregateOutputType | null;
+    _avg: Customer_addressesAvgAggregateOutputType | null;
+    _sum: Customer_addressesSumAggregateOutputType | null;
+    _min: Customer_addressesMinAggregateOutputType | null;
+    _max: Customer_addressesMaxAggregateOutputType | null;
+};
+export type Customer_addressesAvgAggregateOutputType = {
+    address_id: number | null;
+    customer_id: number | null;
+};
+export type Customer_addressesSumAggregateOutputType = {
+    address_id: bigint | null;
+    customer_id: bigint | null;
+};
+export type Customer_addressesMinAggregateOutputType = {
+    address_id: bigint | null;
+    customer_id: bigint | null;
+    receiver_name: string | null;
+    phone: string | null;
+    province: string | null;
+    district: string | null;
+    ward: string | null;
+    address_detail: string | null;
+    is_default: boolean | null;
+    created_at: Date | null;
+};
+export type Customer_addressesMaxAggregateOutputType = {
+    address_id: bigint | null;
+    customer_id: bigint | null;
+    receiver_name: string | null;
+    phone: string | null;
+    province: string | null;
+    district: string | null;
+    ward: string | null;
+    address_detail: string | null;
+    is_default: boolean | null;
+    created_at: Date | null;
+};
+export type Customer_addressesCountAggregateOutputType = {
+    address_id: number;
+    customer_id: number;
+    receiver_name: number;
+    phone: number;
+    province: number;
+    district: number;
+    ward: number;
+    address_detail: number;
+    is_default: number;
+    created_at: number;
+    _all: number;
+};
+export type Customer_addressesAvgAggregateInputType = {
+    address_id?: true;
+    customer_id?: true;
+};
+export type Customer_addressesSumAggregateInputType = {
+    address_id?: true;
+    customer_id?: true;
+};
+export type Customer_addressesMinAggregateInputType = {
+    address_id?: true;
+    customer_id?: true;
+    receiver_name?: true;
+    phone?: true;
+    province?: true;
+    district?: true;
+    ward?: true;
+    address_detail?: true;
+    is_default?: true;
+    created_at?: true;
+};
+export type Customer_addressesMaxAggregateInputType = {
+    address_id?: true;
+    customer_id?: true;
+    receiver_name?: true;
+    phone?: true;
+    province?: true;
+    district?: true;
+    ward?: true;
+    address_detail?: true;
+    is_default?: true;
+    created_at?: true;
+};
+export type Customer_addressesCountAggregateInputType = {
+    address_id?: true;
+    customer_id?: true;
+    receiver_name?: true;
+    phone?: true;
+    province?: true;
+    district?: true;
+    ward?: true;
+    address_detail?: true;
+    is_default?: true;
+    created_at?: true;
+    _all?: true;
+};
+export type Customer_addressesAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.customer_addressesWhereInput;
+    orderBy?: Prisma.customer_addressesOrderByWithRelationInput | Prisma.customer_addressesOrderByWithRelationInput[];
+    cursor?: Prisma.customer_addressesWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    _count?: true | Customer_addressesCountAggregateInputType;
+    _avg?: Customer_addressesAvgAggregateInputType;
+    _sum?: Customer_addressesSumAggregateInputType;
+    _min?: Customer_addressesMinAggregateInputType;
+    _max?: Customer_addressesMaxAggregateInputType;
+};
+export type GetCustomer_addressesAggregateType<T extends Customer_addressesAggregateArgs> = {
+    [P in keyof T & keyof AggregateCustomer_addresses]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateCustomer_addresses[P]> : Prisma.GetScalarType<T[P], AggregateCustomer_addresses[P]>;
+};
+export type customer_addressesGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.customer_addressesWhereInput;
+    orderBy?: Prisma.customer_addressesOrderByWithAggregationInput | Prisma.customer_addressesOrderByWithAggregationInput[];
+    by: Prisma.Customer_addressesScalarFieldEnum[] | Prisma.Customer_addressesScalarFieldEnum;
+    having?: Prisma.customer_addressesScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: Customer_addressesCountAggregateInputType | true;
+    _avg?: Customer_addressesAvgAggregateInputType;
+    _sum?: Customer_addressesSumAggregateInputType;
+    _min?: Customer_addressesMinAggregateInputType;
+    _max?: Customer_addressesMaxAggregateInputType;
+};
+export type Customer_addressesGroupByOutputType = {
+    address_id: bigint;
+    customer_id: bigint | null;
+    receiver_name: string | null;
+    phone: string | null;
+    province: string | null;
+    district: string | null;
+    ward: string | null;
+    address_detail: string | null;
+    is_default: boolean | null;
+    created_at: Date | null;
+    _count: Customer_addressesCountAggregateOutputType | null;
+    _avg: Customer_addressesAvgAggregateOutputType | null;
+    _sum: Customer_addressesSumAggregateOutputType | null;
+    _min: Customer_addressesMinAggregateOutputType | null;
+    _max: Customer_addressesMaxAggregateOutputType | null;
+};
+type GetCustomer_addressesGroupByPayload<T extends customer_addressesGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<Customer_addressesGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof Customer_addressesGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], Customer_addressesGroupByOutputType[P]> : Prisma.GetScalarType<T[P], Customer_addressesGroupByOutputType[P]>;
+}>>;
+export type customer_addressesWhereInput = {
+    AND?: Prisma.customer_addressesWhereInput | Prisma.customer_addressesWhereInput[];
+    OR?: Prisma.customer_addressesWhereInput[];
+    NOT?: Prisma.customer_addressesWhereInput | Prisma.customer_addressesWhereInput[];
+    address_id?: Prisma.BigIntFilter<"customer_addresses"> | bigint | number;
+    customer_id?: Prisma.BigIntNullableFilter<"customer_addresses"> | bigint | number | null;
+    receiver_name?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    phone?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    province?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    district?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    ward?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    address_detail?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    is_default?: Prisma.BoolNullableFilter<"customer_addresses"> | boolean | null;
+    created_at?: Prisma.DateTimeNullableFilter<"customer_addresses"> | Date | string | null;
+    customers?: Prisma.XOR<Prisma.CustomersNullableScalarRelationFilter, Prisma.customersWhereInput> | null;
+};
+export type customer_addressesOrderByWithRelationInput = {
+    address_id?: Prisma.SortOrder;
+    customer_id?: Prisma.SortOrderInput | Prisma.SortOrder;
+    receiver_name?: Prisma.SortOrderInput | Prisma.SortOrder;
+    phone?: Prisma.SortOrderInput | Prisma.SortOrder;
+    province?: Prisma.SortOrderInput | Prisma.SortOrder;
+    district?: Prisma.SortOrderInput | Prisma.SortOrder;
+    ward?: Prisma.SortOrderInput | Prisma.SortOrder;
+    address_detail?: Prisma.SortOrderInput | Prisma.SortOrder;
+    is_default?: Prisma.SortOrderInput | Prisma.SortOrder;
+    created_at?: Prisma.SortOrderInput | Prisma.SortOrder;
+    customers?: Prisma.customersOrderByWithRelationInput;
+    _relevance?: Prisma.customer_addressesOrderByRelevanceInput;
+};
+export type customer_addressesWhereUniqueInput = Prisma.AtLeast<{
+    address_id?: bigint | number;
+    AND?: Prisma.customer_addressesWhereInput | Prisma.customer_addressesWhereInput[];
+    OR?: Prisma.customer_addressesWhereInput[];
+    NOT?: Prisma.customer_addressesWhereInput | Prisma.customer_addressesWhereInput[];
+    customer_id?: Prisma.BigIntNullableFilter<"customer_addresses"> | bigint | number | null;
+    receiver_name?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    phone?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    province?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    district?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    ward?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    address_detail?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    is_default?: Prisma.BoolNullableFilter<"customer_addresses"> | boolean | null;
+    created_at?: Prisma.DateTimeNullableFilter<"customer_addresses"> | Date | string | null;
+    customers?: Prisma.XOR<Prisma.CustomersNullableScalarRelationFilter, Prisma.customersWhereInput> | null;
+}, "address_id">;
+export type customer_addressesOrderByWithAggregationInput = {
+    address_id?: Prisma.SortOrder;
+    customer_id?: Prisma.SortOrderInput | Prisma.SortOrder;
+    receiver_name?: Prisma.SortOrderInput | Prisma.SortOrder;
+    phone?: Prisma.SortOrderInput | Prisma.SortOrder;
+    province?: Prisma.SortOrderInput | Prisma.SortOrder;
+    district?: Prisma.SortOrderInput | Prisma.SortOrder;
+    ward?: Prisma.SortOrderInput | Prisma.SortOrder;
+    address_detail?: Prisma.SortOrderInput | Prisma.SortOrder;
+    is_default?: Prisma.SortOrderInput | Prisma.SortOrder;
+    created_at?: Prisma.SortOrderInput | Prisma.SortOrder;
+    _count?: Prisma.customer_addressesCountOrderByAggregateInput;
+    _avg?: Prisma.customer_addressesAvgOrderByAggregateInput;
+    _max?: Prisma.customer_addressesMaxOrderByAggregateInput;
+    _min?: Prisma.customer_addressesMinOrderByAggregateInput;
+    _sum?: Prisma.customer_addressesSumOrderByAggregateInput;
+};
+export type customer_addressesScalarWhereWithAggregatesInput = {
+    AND?: Prisma.customer_addressesScalarWhereWithAggregatesInput | Prisma.customer_addressesScalarWhereWithAggregatesInput[];
+    OR?: Prisma.customer_addressesScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.customer_addressesScalarWhereWithAggregatesInput | Prisma.customer_addressesScalarWhereWithAggregatesInput[];
+    address_id?: Prisma.BigIntWithAggregatesFilter<"customer_addresses"> | bigint | number;
+    customer_id?: Prisma.BigIntNullableWithAggregatesFilter<"customer_addresses"> | bigint | number | null;
+    receiver_name?: Prisma.StringNullableWithAggregatesFilter<"customer_addresses"> | string | null;
+    phone?: Prisma.StringNullableWithAggregatesFilter<"customer_addresses"> | string | null;
+    province?: Prisma.StringNullableWithAggregatesFilter<"customer_addresses"> | string | null;
+    district?: Prisma.StringNullableWithAggregatesFilter<"customer_addresses"> | string | null;
+    ward?: Prisma.StringNullableWithAggregatesFilter<"customer_addresses"> | string | null;
+    address_detail?: Prisma.StringNullableWithAggregatesFilter<"customer_addresses"> | string | null;
+    is_default?: Prisma.BoolNullableWithAggregatesFilter<"customer_addresses"> | boolean | null;
+    created_at?: Prisma.DateTimeNullableWithAggregatesFilter<"customer_addresses"> | Date | string | null;
+};
+export type customer_addressesCreateInput = {
+    address_id?: bigint | number;
+    receiver_name?: string | null;
+    phone?: string | null;
+    province?: string | null;
+    district?: string | null;
+    ward?: string | null;
+    address_detail?: string | null;
+    is_default?: boolean | null;
+    created_at?: Date | string | null;
+    customers?: Prisma.customersCreateNestedOneWithoutCustomer_addressesInput;
+};
+export type customer_addressesUncheckedCreateInput = {
+    address_id?: bigint | number;
+    customer_id?: bigint | number | null;
+    receiver_name?: string | null;
+    phone?: string | null;
+    province?: string | null;
+    district?: string | null;
+    ward?: string | null;
+    address_detail?: string | null;
+    is_default?: boolean | null;
+    created_at?: Date | string | null;
+};
+export type customer_addressesUpdateInput = {
+    address_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number;
+    receiver_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    district?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    ward?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    address_detail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    is_default?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
+    created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    customers?: Prisma.customersUpdateOneWithoutCustomer_addressesNestedInput;
+};
+export type customer_addressesUncheckedUpdateInput = {
+    address_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number;
+    customer_id?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null;
+    receiver_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    district?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    ward?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    address_detail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    is_default?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
+    created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+};
+export type customer_addressesCreateManyInput = {
+    address_id?: bigint | number;
+    customer_id?: bigint | number | null;
+    receiver_name?: string | null;
+    phone?: string | null;
+    province?: string | null;
+    district?: string | null;
+    ward?: string | null;
+    address_detail?: string | null;
+    is_default?: boolean | null;
+    created_at?: Date | string | null;
+};
+export type customer_addressesUpdateManyMutationInput = {
+    address_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number;
+    receiver_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    district?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    ward?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    address_detail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    is_default?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
+    created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+};
+export type customer_addressesUncheckedUpdateManyInput = {
+    address_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number;
+    customer_id?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null;
+    receiver_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    district?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    ward?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    address_detail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    is_default?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
+    created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+};
+export type customer_addressesOrderByRelevanceInput = {
+    fields: Prisma.customer_addressesOrderByRelevanceFieldEnum | Prisma.customer_addressesOrderByRelevanceFieldEnum[];
+    sort: Prisma.SortOrder;
+    search: string;
+};
+export type customer_addressesCountOrderByAggregateInput = {
+    address_id?: Prisma.SortOrder;
+    customer_id?: Prisma.SortOrder;
+    receiver_name?: Prisma.SortOrder;
+    phone?: Prisma.SortOrder;
+    province?: Prisma.SortOrder;
+    district?: Prisma.SortOrder;
+    ward?: Prisma.SortOrder;
+    address_detail?: Prisma.SortOrder;
+    is_default?: Prisma.SortOrder;
+    created_at?: Prisma.SortOrder;
+};
+export type customer_addressesAvgOrderByAggregateInput = {
+    address_id?: Prisma.SortOrder;
+    customer_id?: Prisma.SortOrder;
+};
+export type customer_addressesMaxOrderByAggregateInput = {
+    address_id?: Prisma.SortOrder;
+    customer_id?: Prisma.SortOrder;
+    receiver_name?: Prisma.SortOrder;
+    phone?: Prisma.SortOrder;
+    province?: Prisma.SortOrder;
+    district?: Prisma.SortOrder;
+    ward?: Prisma.SortOrder;
+    address_detail?: Prisma.SortOrder;
+    is_default?: Prisma.SortOrder;
+    created_at?: Prisma.SortOrder;
+};
+export type customer_addressesMinOrderByAggregateInput = {
+    address_id?: Prisma.SortOrder;
+    customer_id?: Prisma.SortOrder;
+    receiver_name?: Prisma.SortOrder;
+    phone?: Prisma.SortOrder;
+    province?: Prisma.SortOrder;
+    district?: Prisma.SortOrder;
+    ward?: Prisma.SortOrder;
+    address_detail?: Prisma.SortOrder;
+    is_default?: Prisma.SortOrder;
+    created_at?: Prisma.SortOrder;
+};
+export type customer_addressesSumOrderByAggregateInput = {
+    address_id?: Prisma.SortOrder;
+    customer_id?: Prisma.SortOrder;
+};
+export type Customer_addressesListRelationFilter = {
+    every?: Prisma.customer_addressesWhereInput;
+    some?: Prisma.customer_addressesWhereInput;
+    none?: Prisma.customer_addressesWhereInput;
+};
+export type customer_addressesOrderByRelationAggregateInput = {
+    _count?: Prisma.SortOrder;
+};
+export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null;
+};
+export type customer_addressesCreateNestedManyWithoutCustomersInput = {
+    create?: Prisma.XOR<Prisma.customer_addressesCreateWithoutCustomersInput, Prisma.customer_addressesUncheckedCreateWithoutCustomersInput> | Prisma.customer_addressesCreateWithoutCustomersInput[] | Prisma.customer_addressesUncheckedCreateWithoutCustomersInput[];
+    connectOrCreate?: Prisma.customer_addressesCreateOrConnectWithoutCustomersInput | Prisma.customer_addressesCreateOrConnectWithoutCustomersInput[];
+    createMany?: Prisma.customer_addressesCreateManyCustomersInputEnvelope;
+    connect?: Prisma.customer_addressesWhereUniqueInput | Prisma.customer_addressesWhereUniqueInput[];
+};
+export type customer_addressesUncheckedCreateNestedManyWithoutCustomersInput = {
+    create?: Prisma.XOR<Prisma.customer_addressesCreateWithoutCustomersInput, Prisma.customer_addressesUncheckedCreateWithoutCustomersInput> | Prisma.customer_addressesCreateWithoutCustomersInput[] | Prisma.customer_addressesUncheckedCreateWithoutCustomersInput[];
+    connectOrCreate?: Prisma.customer_addressesCreateOrConnectWithoutCustomersInput | Prisma.customer_addressesCreateOrConnectWithoutCustomersInput[];
+    createMany?: Prisma.customer_addressesCreateManyCustomersInputEnvelope;
+    connect?: Prisma.customer_addressesWhereUniqueInput | Prisma.customer_addressesWhereUniqueInput[];
+};
+export type customer_addressesUpdateManyWithoutCustomersNestedInput = {
+    create?: Prisma.XOR<Prisma.customer_addressesCreateWithoutCustomersInput, Prisma.customer_addressesUncheckedCreateWithoutCustomersInput> | Prisma.customer_addressesCreateWithoutCustomersInput[] | Prisma.customer_addressesUncheckedCreateWithoutCustomersInput[];
+    connectOrCreate?: Prisma.customer_addressesCreateOrConnectWithoutCustomersInput | Prisma.customer_addressesCreateOrConnectWithoutCustomersInput[];
+    upsert?: Prisma.customer_addressesUpsertWithWhereUniqueWithoutCustomersInput | Prisma.customer_addressesUpsertWithWhereUniqueWithoutCustomersInput[];
+    createMany?: Prisma.customer_addressesCreateManyCustomersInputEnvelope;
+    set?: Prisma.customer_addressesWhereUniqueInput | Prisma.customer_addressesWhereUniqueInput[];
+    disconnect?: Prisma.customer_addressesWhereUniqueInput | Prisma.customer_addressesWhereUniqueInput[];
+    delete?: Prisma.customer_addressesWhereUniqueInput | Prisma.customer_addressesWhereUniqueInput[];
+    connect?: Prisma.customer_addressesWhereUniqueInput | Prisma.customer_addressesWhereUniqueInput[];
+    update?: Prisma.customer_addressesUpdateWithWhereUniqueWithoutCustomersInput | Prisma.customer_addressesUpdateWithWhereUniqueWithoutCustomersInput[];
+    updateMany?: Prisma.customer_addressesUpdateManyWithWhereWithoutCustomersInput | Prisma.customer_addressesUpdateManyWithWhereWithoutCustomersInput[];
+    deleteMany?: Prisma.customer_addressesScalarWhereInput | Prisma.customer_addressesScalarWhereInput[];
+};
+export type customer_addressesUncheckedUpdateManyWithoutCustomersNestedInput = {
+    create?: Prisma.XOR<Prisma.customer_addressesCreateWithoutCustomersInput, Prisma.customer_addressesUncheckedCreateWithoutCustomersInput> | Prisma.customer_addressesCreateWithoutCustomersInput[] | Prisma.customer_addressesUncheckedCreateWithoutCustomersInput[];
+    connectOrCreate?: Prisma.customer_addressesCreateOrConnectWithoutCustomersInput | Prisma.customer_addressesCreateOrConnectWithoutCustomersInput[];
+    upsert?: Prisma.customer_addressesUpsertWithWhereUniqueWithoutCustomersInput | Prisma.customer_addressesUpsertWithWhereUniqueWithoutCustomersInput[];
+    createMany?: Prisma.customer_addressesCreateManyCustomersInputEnvelope;
+    set?: Prisma.customer_addressesWhereUniqueInput | Prisma.customer_addressesWhereUniqueInput[];
+    disconnect?: Prisma.customer_addressesWhereUniqueInput | Prisma.customer_addressesWhereUniqueInput[];
+    delete?: Prisma.customer_addressesWhereUniqueInput | Prisma.customer_addressesWhereUniqueInput[];
+    connect?: Prisma.customer_addressesWhereUniqueInput | Prisma.customer_addressesWhereUniqueInput[];
+    update?: Prisma.customer_addressesUpdateWithWhereUniqueWithoutCustomersInput | Prisma.customer_addressesUpdateWithWhereUniqueWithoutCustomersInput[];
+    updateMany?: Prisma.customer_addressesUpdateManyWithWhereWithoutCustomersInput | Prisma.customer_addressesUpdateManyWithWhereWithoutCustomersInput[];
+    deleteMany?: Prisma.customer_addressesScalarWhereInput | Prisma.customer_addressesScalarWhereInput[];
+};
+export type customer_addressesCreateWithoutCustomersInput = {
+    address_id?: bigint | number;
+    receiver_name?: string | null;
+    phone?: string | null;
+    province?: string | null;
+    district?: string | null;
+    ward?: string | null;
+    address_detail?: string | null;
+    is_default?: boolean | null;
+    created_at?: Date | string | null;
+};
+export type customer_addressesUncheckedCreateWithoutCustomersInput = {
+    address_id?: bigint | number;
+    receiver_name?: string | null;
+    phone?: string | null;
+    province?: string | null;
+    district?: string | null;
+    ward?: string | null;
+    address_detail?: string | null;
+    is_default?: boolean | null;
+    created_at?: Date | string | null;
+};
+export type customer_addressesCreateOrConnectWithoutCustomersInput = {
+    where: Prisma.customer_addressesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.customer_addressesCreateWithoutCustomersInput, Prisma.customer_addressesUncheckedCreateWithoutCustomersInput>;
+};
+export type customer_addressesCreateManyCustomersInputEnvelope = {
+    data: Prisma.customer_addressesCreateManyCustomersInput | Prisma.customer_addressesCreateManyCustomersInput[];
+    skipDuplicates?: boolean;
+};
+export type customer_addressesUpsertWithWhereUniqueWithoutCustomersInput = {
+    where: Prisma.customer_addressesWhereUniqueInput;
+    update: Prisma.XOR<Prisma.customer_addressesUpdateWithoutCustomersInput, Prisma.customer_addressesUncheckedUpdateWithoutCustomersInput>;
+    create: Prisma.XOR<Prisma.customer_addressesCreateWithoutCustomersInput, Prisma.customer_addressesUncheckedCreateWithoutCustomersInput>;
+};
+export type customer_addressesUpdateWithWhereUniqueWithoutCustomersInput = {
+    where: Prisma.customer_addressesWhereUniqueInput;
+    data: Prisma.XOR<Prisma.customer_addressesUpdateWithoutCustomersInput, Prisma.customer_addressesUncheckedUpdateWithoutCustomersInput>;
+};
+export type customer_addressesUpdateManyWithWhereWithoutCustomersInput = {
+    where: Prisma.customer_addressesScalarWhereInput;
+    data: Prisma.XOR<Prisma.customer_addressesUpdateManyMutationInput, Prisma.customer_addressesUncheckedUpdateManyWithoutCustomersInput>;
+};
+export type customer_addressesScalarWhereInput = {
+    AND?: Prisma.customer_addressesScalarWhereInput | Prisma.customer_addressesScalarWhereInput[];
+    OR?: Prisma.customer_addressesScalarWhereInput[];
+    NOT?: Prisma.customer_addressesScalarWhereInput | Prisma.customer_addressesScalarWhereInput[];
+    address_id?: Prisma.BigIntFilter<"customer_addresses"> | bigint | number;
+    customer_id?: Prisma.BigIntNullableFilter<"customer_addresses"> | bigint | number | null;
+    receiver_name?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    phone?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    province?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    district?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    ward?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    address_detail?: Prisma.StringNullableFilter<"customer_addresses"> | string | null;
+    is_default?: Prisma.BoolNullableFilter<"customer_addresses"> | boolean | null;
+    created_at?: Prisma.DateTimeNullableFilter<"customer_addresses"> | Date | string | null;
+};
+export type customer_addressesCreateManyCustomersInput = {
+    address_id?: bigint | number;
+    receiver_name?: string | null;
+    phone?: string | null;
+    province?: string | null;
+    district?: string | null;
+    ward?: string | null;
+    address_detail?: string | null;
+    is_default?: boolean | null;
+    created_at?: Date | string | null;
+};
+export type customer_addressesUpdateWithoutCustomersInput = {
+    address_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number;
+    receiver_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    district?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    ward?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    address_detail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    is_default?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
+    created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+};
+export type customer_addressesUncheckedUpdateWithoutCustomersInput = {
+    address_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number;
+    receiver_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    district?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    ward?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    address_detail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    is_default?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
+    created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+};
+export type customer_addressesUncheckedUpdateManyWithoutCustomersInput = {
+    address_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number;
+    receiver_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    district?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    ward?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    address_detail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    is_default?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null;
+    created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+};
+export type customer_addressesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    address_id?: boolean;
+    customer_id?: boolean;
+    receiver_name?: boolean;
+    phone?: boolean;
+    province?: boolean;
+    district?: boolean;
+    ward?: boolean;
+    address_detail?: boolean;
+    is_default?: boolean;
+    created_at?: boolean;
+    customers?: boolean | Prisma.customer_addresses$customersArgs<ExtArgs>;
+}, ExtArgs["result"]["customer_addresses"]>;
+export type customer_addressesSelectScalar = {
+    address_id?: boolean;
+    customer_id?: boolean;
+    receiver_name?: boolean;
+    phone?: boolean;
+    province?: boolean;
+    district?: boolean;
+    ward?: boolean;
+    address_detail?: boolean;
+    is_default?: boolean;
+    created_at?: boolean;
+};
+export type customer_addressesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"address_id" | "customer_id" | "receiver_name" | "phone" | "province" | "district" | "ward" | "address_detail" | "is_default" | "created_at", ExtArgs["result"]["customer_addresses"]>;
+export type customer_addressesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    customers?: boolean | Prisma.customer_addresses$customersArgs<ExtArgs>;
+};
+export type $customer_addressesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "customer_addresses";
+    objects: {
+        customers: Prisma.$customersPayload<ExtArgs> | null;
+    };
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        address_id: bigint;
+        customer_id: bigint | null;
+        receiver_name: string | null;
+        phone: string | null;
+        province: string | null;
+        district: string | null;
+        ward: string | null;
+        address_detail: string | null;
+        is_default: boolean | null;
+        created_at: Date | null;
+    }, ExtArgs["result"]["customer_addresses"]>;
+    composites: {};
+};
+export type customer_addressesGetPayload<S extends boolean | null | undefined | customer_addressesDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$customer_addressesPayload, S>;
+export type customer_addressesCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<customer_addressesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: Customer_addressesCountAggregateInputType | true;
+};
+export interface customer_addressesDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['customer_addresses'];
+        meta: {
+            name: 'customer_addresses';
+        };
+    };
+    findUnique<T extends customer_addressesFindUniqueArgs>(args: Prisma.SelectSubset<T, customer_addressesFindUniqueArgs<ExtArgs>>): Prisma.Prisma__customer_addressesClient<runtime.Types.Result.GetResult<Prisma.$customer_addressesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    findUniqueOrThrow<T extends customer_addressesFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, customer_addressesFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__customer_addressesClient<runtime.Types.Result.GetResult<Prisma.$customer_addressesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    findFirst<T extends customer_addressesFindFirstArgs>(args?: Prisma.SelectSubset<T, customer_addressesFindFirstArgs<ExtArgs>>): Prisma.Prisma__customer_addressesClient<runtime.Types.Result.GetResult<Prisma.$customer_addressesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    findFirstOrThrow<T extends customer_addressesFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, customer_addressesFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__customer_addressesClient<runtime.Types.Result.GetResult<Prisma.$customer_addressesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    findMany<T extends customer_addressesFindManyArgs>(args?: Prisma.SelectSubset<T, customer_addressesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$customer_addressesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    create<T extends customer_addressesCreateArgs>(args: Prisma.SelectSubset<T, customer_addressesCreateArgs<ExtArgs>>): Prisma.Prisma__customer_addressesClient<runtime.Types.Result.GetResult<Prisma.$customer_addressesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    createMany<T extends customer_addressesCreateManyArgs>(args?: Prisma.SelectSubset<T, customer_addressesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    delete<T extends customer_addressesDeleteArgs>(args: Prisma.SelectSubset<T, customer_addressesDeleteArgs<ExtArgs>>): Prisma.Prisma__customer_addressesClient<runtime.Types.Result.GetResult<Prisma.$customer_addressesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    update<T extends customer_addressesUpdateArgs>(args: Prisma.SelectSubset<T, customer_addressesUpdateArgs<ExtArgs>>): Prisma.Prisma__customer_addressesClient<runtime.Types.Result.GetResult<Prisma.$customer_addressesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    deleteMany<T extends customer_addressesDeleteManyArgs>(args?: Prisma.SelectSubset<T, customer_addressesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    updateMany<T extends customer_addressesUpdateManyArgs>(args: Prisma.SelectSubset<T, customer_addressesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    upsert<T extends customer_addressesUpsertArgs>(args: Prisma.SelectSubset<T, customer_addressesUpsertArgs<ExtArgs>>): Prisma.Prisma__customer_addressesClient<runtime.Types.Result.GetResult<Prisma.$customer_addressesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    count<T extends customer_addressesCountArgs>(args?: Prisma.Subset<T, customer_addressesCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], Customer_addressesCountAggregateOutputType> : number>;
+    aggregate<T extends Customer_addressesAggregateArgs>(args: Prisma.Subset<T, Customer_addressesAggregateArgs>): Prisma.PrismaPromise<GetCustomer_addressesAggregateType<T>>;
+    groupBy<T extends customer_addressesGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: customer_addressesGroupByArgs['orderBy'];
+    } : {
+        orderBy?: customer_addressesGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, customer_addressesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomer_addressesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    readonly fields: customer_addressesFieldRefs;
+}
+export interface Prisma__customer_addressesClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    customers<T extends Prisma.customer_addresses$customersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.customer_addresses$customersArgs<ExtArgs>>): Prisma.Prisma__customersClient<runtime.Types.Result.GetResult<Prisma.$customersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+export interface customer_addressesFieldRefs {
+    readonly address_id: Prisma.FieldRef<"customer_addresses", 'BigInt'>;
+    readonly customer_id: Prisma.FieldRef<"customer_addresses", 'BigInt'>;
+    readonly receiver_name: Prisma.FieldRef<"customer_addresses", 'String'>;
+    readonly phone: Prisma.FieldRef<"customer_addresses", 'String'>;
+    readonly province: Prisma.FieldRef<"customer_addresses", 'String'>;
+    readonly district: Prisma.FieldRef<"customer_addresses", 'String'>;
+    readonly ward: Prisma.FieldRef<"customer_addresses", 'String'>;
+    readonly address_detail: Prisma.FieldRef<"customer_addresses", 'String'>;
+    readonly is_default: Prisma.FieldRef<"customer_addresses", 'Boolean'>;
+    readonly created_at: Prisma.FieldRef<"customer_addresses", 'DateTime'>;
+}
+export type customer_addressesFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.customer_addressesSelect<ExtArgs> | null;
+    omit?: Prisma.customer_addressesOmit<ExtArgs> | null;
+    include?: Prisma.customer_addressesInclude<ExtArgs> | null;
+    where: Prisma.customer_addressesWhereUniqueInput;
+};
+export type customer_addressesFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.customer_addressesSelect<ExtArgs> | null;
+    omit?: Prisma.customer_addressesOmit<ExtArgs> | null;
+    include?: Prisma.customer_addressesInclude<ExtArgs> | null;
+    where: Prisma.customer_addressesWhereUniqueInput;
+};
+export type customer_addressesFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.customer_addressesSelect<ExtArgs> | null;
+    omit?: Prisma.customer_addressesOmit<ExtArgs> | null;
+    include?: Prisma.customer_addressesInclude<ExtArgs> | null;
+    where?: Prisma.customer_addressesWhereInput;
+    orderBy?: Prisma.customer_addressesOrderByWithRelationInput | Prisma.customer_addressesOrderByWithRelationInput[];
+    cursor?: Prisma.customer_addressesWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.Customer_addressesScalarFieldEnum | Prisma.Customer_addressesScalarFieldEnum[];
+};
+export type customer_addressesFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.customer_addressesSelect<ExtArgs> | null;
+    omit?: Prisma.customer_addressesOmit<ExtArgs> | null;
+    include?: Prisma.customer_addressesInclude<ExtArgs> | null;
+    where?: Prisma.customer_addressesWhereInput;
+    orderBy?: Prisma.customer_addressesOrderByWithRelationInput | Prisma.customer_addressesOrderByWithRelationInput[];
+    cursor?: Prisma.customer_addressesWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.Customer_addressesScalarFieldEnum | Prisma.Customer_addressesScalarFieldEnum[];
+};
+export type customer_addressesFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.customer_addressesSelect<ExtArgs> | null;
+    omit?: Prisma.customer_addressesOmit<ExtArgs> | null;
+    include?: Prisma.customer_addressesInclude<ExtArgs> | null;
+    where?: Prisma.customer_addressesWhereInput;
+    orderBy?: Prisma.customer_addressesOrderByWithRelationInput | Prisma.customer_addressesOrderByWithRelationInput[];
+    cursor?: Prisma.customer_addressesWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.Customer_addressesScalarFieldEnum | Prisma.Customer_addressesScalarFieldEnum[];
+};
+export type customer_addressesCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.customer_addressesSelect<ExtArgs> | null;
+    omit?: Prisma.customer_addressesOmit<ExtArgs> | null;
+    include?: Prisma.customer_addressesInclude<ExtArgs> | null;
+    data?: Prisma.XOR<Prisma.customer_addressesCreateInput, Prisma.customer_addressesUncheckedCreateInput>;
+};
+export type customer_addressesCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    data: Prisma.customer_addressesCreateManyInput | Prisma.customer_addressesCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+export type customer_addressesUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.customer_addressesSelect<ExtArgs> | null;
+    omit?: Prisma.customer_addressesOmit<ExtArgs> | null;
+    include?: Prisma.customer_addressesInclude<ExtArgs> | null;
+    data: Prisma.XOR<Prisma.customer_addressesUpdateInput, Prisma.customer_addressesUncheckedUpdateInput>;
+    where: Prisma.customer_addressesWhereUniqueInput;
+};
+export type customer_addressesUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    data: Prisma.XOR<Prisma.customer_addressesUpdateManyMutationInput, Prisma.customer_addressesUncheckedUpdateManyInput>;
+    where?: Prisma.customer_addressesWhereInput;
+    limit?: number;
+};
+export type customer_addressesUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.customer_addressesSelect<ExtArgs> | null;
+    omit?: Prisma.customer_addressesOmit<ExtArgs> | null;
+    include?: Prisma.customer_addressesInclude<ExtArgs> | null;
+    where: Prisma.customer_addressesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.customer_addressesCreateInput, Prisma.customer_addressesUncheckedCreateInput>;
+    update: Prisma.XOR<Prisma.customer_addressesUpdateInput, Prisma.customer_addressesUncheckedUpdateInput>;
+};
+export type customer_addressesDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.customer_addressesSelect<ExtArgs> | null;
+    omit?: Prisma.customer_addressesOmit<ExtArgs> | null;
+    include?: Prisma.customer_addressesInclude<ExtArgs> | null;
+    where: Prisma.customer_addressesWhereUniqueInput;
+};
+export type customer_addressesDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.customer_addressesWhereInput;
+    limit?: number;
+};
+export type customer_addresses$customersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.customersSelect<ExtArgs> | null;
+    omit?: Prisma.customersOmit<ExtArgs> | null;
+    include?: Prisma.customersInclude<ExtArgs> | null;
+    where?: Prisma.customersWhereInput;
+};
+export type customer_addressesDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.customer_addressesSelect<ExtArgs> | null;
+    omit?: Prisma.customer_addressesOmit<ExtArgs> | null;
+    include?: Prisma.customer_addressesInclude<ExtArgs> | null;
+};
+export {};
