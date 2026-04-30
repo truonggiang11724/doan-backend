@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "start": "node dist/src/main.js",
+    "start": "node generate-prisma.js && node dist/src/main.js",
     "postinstall": "npm run build",
     "prisma:generate": "npx prisma generate",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
