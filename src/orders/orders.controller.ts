@@ -172,7 +172,7 @@ export class OrdersController {
           render_id: 10,
           product_name: 'Classic T-Shirt',
           variant_details: {
-            color: 'Blue',
+            color: 'Black',
             size: 'M',
           },
         },
