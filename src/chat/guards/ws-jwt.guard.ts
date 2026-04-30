@@ -1,5 +1,6 @@
-import { CanActivate, ExecutionContext, Injectable, WsException } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { WsException } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
 
 @Injectable()
