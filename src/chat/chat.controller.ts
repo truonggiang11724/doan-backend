@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, Request, UseGuards } from '@nestjs/
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ChatService } from './chat.service';
 import { CreateConversationDto } from './dto/create-conversation.dto';
+import { CreateMessageDto } from './dto/create-message.dto';
 
 @Controller()
 @UseGuards(JwtAuthGuard)
@@ -21,5 +22,10 @@ export class ChatController {
   @Post('conversations')
   async createConversation(@Body() body: CreateConversationDto, @Request() req: any) {
     return this.chatService.createConversation(req.user, body);
+  }
+
+  @Post('messages')
+  async sendMessage(@Body() body: CreateMessageDto, @Request() req: any) {
+    return this.chatService.saveMessage(req.user.user_id, body);
   }
 }
