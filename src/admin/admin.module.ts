@@ -6,6 +6,10 @@ import { AdminOrdersController } from './admin-orders.controller';
 import { AdminOrdersService } from './admin-orders.service';
 import { AdminUsersController } from './admin-users.controller';
 import { AdminUsersService } from './admin-users.service';
+import { AdminSellersController } from './admin-sellers.controller';
+import { AdminSellersService } from './admin-sellers.service';
+import { AdminPromotionsController } from './admin-promotions.controller';
+import { AdminPromotionsService } from './admin-promotions.service';
 import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
@@ -14,7 +18,15 @@ import { PrismaModule } from '../prisma/prisma.module';
     AdminDashboardController,
     AdminOrdersController,
     AdminUsersController,
+    AdminSellersController,
+    AdminPromotionsController,
   ],
-  providers: [AdminDashboardService, AdminOrdersService, AdminUsersService],
+  providers: [
+    AdminDashboardService,
+    AdminOrdersService,
+    AdminUsersService,
+    AdminSellersService,
+    AdminPromotionsService,
+  ],
 })
 export class AdminModule {}

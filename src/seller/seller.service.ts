@@ -235,17 +235,15 @@ export class SellerService {
       },
       orderBy: { created_at: 'desc' },
     });
+    
 
     // Filter reviews for seller's products
     return reviews.filter((review) => {
       const orderItems = review.order_items;
       return (
         orderItems && 
-        Array.isArray(orderItems) && 
-        orderItems.some((item) =>
-          item.product_variants?.products?.seller_id === sellerId
+        orderItems.product_variants?.products?.seller_id === sellerId
         )
-      );
     });
   }
 

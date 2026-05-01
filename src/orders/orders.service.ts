@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
@@ -6,13 +6,105 @@ import { VNPayService } from '../payments/vnpay.service';
 
 @Injectable()
 export class OrdersService {
+  // Order limits
+  private readonly MAX_ORDER_AMOUNT = 2000000; // Max amount per order
+  private readonly DEFAULT_DAILY_LIMIT = 5000000; // Default daily limit
+  private readonly PREMIUM_DAILY_LIMIT = 10000000; // Daily limit for users with history > 2M
+  private readonly PREMIUM_THRESHOLD = 2000000; // Threshold to get premium daily limit
+
   constructor(
     private prisma: PrismaService,
     private vnpayService: VNPayService,
   ) {}
 
+  /**
+   * Check if user has lifetime orders exceeding premium threshold
+   */
+  private async checkUserPremiumStatus(customerId: number): Promise<boolean> {
+    const result = await this.prisma.orders.aggregate({
+      where: {
+        customer_id: customerId,
+        order_status: {
+          in: ['DELIVERED', 'PROCESSING', 'PENDING'], // Exclude cancelled orders
+          notIn: ['CANCELLED'],
+        },
+      },
+      _sum: {
+        total_amount: true,
+      },
+    });
+
+    const totalAmount = Number(result._sum.total_amount || 0);
+    return totalAmount > this.PREMIUM_THRESHOLD;
+  }
+
+  /**
+   * Get total order amount for a user in the current day
+   */
+  private async getUserDailyOrderTotal(customerId: number): Promise<number> {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    const result = await this.prisma.orders.aggregate({
+      where: {
+        customer_id: customerId,
+        created_at: {
+          gte: today,
+          lt: tomorrow,
+        },
+        order_status: {
+          notIn: ['CANCELLED'],
+        },
+      },
+      _sum: {
+        total_amount: true,
+      },
+    });
+
+    return Number(result._sum.total_amount || 0);
+  }
+
+  /**
+   * Validate order before creation
+   */
+  private async validateOrderLimits(customerId: number, orderAmount: number): Promise<void> {
+    const orderAmountNum = Number(orderAmount || 0);
+
+    // Check 1: Individual order amount limit
+    if (orderAmountNum >= this.MAX_ORDER_AMOUNT) {
+      throw new BadRequestException(
+        `Số tiền một đơn hàng không được vượt quá ${this.MAX_ORDER_AMOUNT.toLocaleString('vi-VN')} VNĐ`
+      );
+    }
+
+    // Check 2: Get user's premium status and daily limit
+    const isPremium = await this.checkUserPremiumStatus(customerId);
+    const dailyLimit = isPremium ? this.PREMIUM_DAILY_LIMIT : this.DEFAULT_DAILY_LIMIT;
+
+    // Check 3: Daily order total
+    const todayTotal = await this.getUserDailyOrderTotal(customerId);
+    const newTotal = todayTotal + orderAmountNum;
+
+    if (newTotal > dailyLimit) {
+      const remainingToday = dailyLimit - todayTotal;
+      const limitMessage = isPremium
+        ? `Bạn đã đặt đơn hàng với tổng tiền ${todayTotal.toLocaleString('vi-VN')} VNĐ hôm nay. Giới hạn trong ngày là ${dailyLimit.toLocaleString('vi-VN')} VNĐ`
+        : `Tổng tiền đơn hàng hôm nay sẽ vượt quá giới hạn ${dailyLimit.toLocaleString('vi-VN')} VNĐ. Bạn có thể đặt tối đa ${remainingToday.toLocaleString('vi-VN')} VNĐ nữa`;
+
+      throw new BadRequestException(limitMessage);
+    }
+  }
+
   async create(createOrderDto: CreateOrderDto) {
     const { items, payment_method, ...data } = createOrderDto;
+
+    // Validate order limits before creating
+    if (data.customer_id && data.total_amount) {
+      await this.validateOrderLimits(data.customer_id, data.total_amount);
+    }
 
     const order = await this.prisma.orders.create({
       data: {
