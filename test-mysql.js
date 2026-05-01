@@ -1,6 +1,7 @@
+// test-mysql.js
 const mysql = require('mysql2/promise');
 
-(async () => {
+async function test() {
   try {
     const conn = await mysql.createConnection({
       host: 'giang.mysql.database.azure.com',
@@ -8,12 +9,15 @@ const mysql = require('mysql2/promise');
       password: 'Giang1172004',
       database: 'fashion_shop',
       ssl: {
-        ca: require('fs').readFileSync('MysqlflexGlobalRootCA.crt.pem')
+        rejectUnauthorized: true
       }
     });
 
-    console.log("✅ OK");
-  } catch (e) {
-    console.error("❌ REAL ERROR:", e);
+    console.log("✅ CONNECT OK");
+    await conn.end();
+  } catch (err) {
+    console.error("❌ ERROR:", err);
   }
-})();
+}
+
+test();
