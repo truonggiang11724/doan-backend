@@ -161,7 +161,7 @@ export class MockupsService {
         customer_id: userId,
         product_id: createMockupDto.product_id,
         template_id: createMockupDto.template_id,
-        design_image_url: processedDesignUrl,
+        design_image_url: process.env.BACKEND_URL + processedDesignUrl,
         render_config: JSON.stringify(createMockupDto.render_config),
         status: 'processing',
       },
@@ -171,7 +171,7 @@ export class MockupsService {
       // Prepare smart objects for Sudomock API
       const smartObjects = this.prepareSmartObjects(
         template,
-        processedDesignUrl,
+        process.env.BACKEND_URL + processedDesignUrl,
         createMockupDto.render_config,
       );
 
