@@ -80,6 +80,11 @@ export class OrdersService {
               include: { products: true }
             },
             mockup_renders: true,
+            reviews: {
+              include: {
+                review_media: true,
+              },
+            },
           }
         },  
       },
@@ -163,13 +168,13 @@ export class OrdersService {
       throw new Error('Order not found');
     }
 
-    if (order.order_status !== 'Delivered') {
+    if (order.order_status !== 'DELIVERED') {
       throw new Error('Order must be in Delivered status to receive');
     }
 
     return this.prisma.orders.update({
       where: { order_id: orderId },
-      data: { order_status: 'Received' },
+      data: { order_status: 'COMPLETED' },
     });
   }
 }

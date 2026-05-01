@@ -21,7 +21,7 @@ export class AuthService {
 
   // Register user and hash password with bcrypt
   async register(registerDto: RegisterDto) {
-    const { email, password, username } = registerDto;
+    const { email, password, username, role, shop_name } = registerDto;
 
     // Check if user already exists
     const existingUser = await this.usersService.findByEmail(email);
@@ -32,32 +32,56 @@ export class AuthService {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    const accountRole = role === 'SELLER' ? 'SELLER' : 'CUSTOMER';
+
     // Create user
     const user = await this.usersService.create(
       username,
       email,
       hashedPassword,
+      accountRole,
     );
 
     // Generate JWT token
     const token = this.generateToken(user);
 
-    await this.prisma.customers.create({
-      data: {
-        customer_id: user.user_id,
-        loyalty_point: 0,
-        level: 1,
-        status: 'active',
-      }
-    })
-    
-    await this.prisma.carts.create({
-      data: {
-        customer_id: user.user_id,
-      },
-    });
-    
-                             
+    if (accountRole === 'CUSTOMER') {
+      await this.prisma.customers.create({
+        data: {
+          customer_id: user.user_id,
+          loyalty_point: 0,
+          level: 1,
+          status: 'active',
+        },
+      });
+
+      await this.prisma.carts.create({
+        data: {
+          customer_id: user.user_id,
+        },
+      });
+    }
+
+    if (accountRole === 'SELLER') {
+      await this.prisma.sellers.create({
+        data: {
+          user_id: user.user_id,
+          shop_name: shop_name || username,
+          rating: 0,
+        },
+      });
+
+      await this.prisma.wallets.create({
+        data: {
+          seller_id: user.user_id,
+          available_balance: 0,
+          pending_balance: 0,
+          withdrawn_balance: 0,
+          total_revenue: 0,
+        },
+      });
+    }
+
     return {
       access_token: token,
       user: {

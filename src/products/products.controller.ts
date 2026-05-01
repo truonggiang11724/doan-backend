@@ -153,6 +153,65 @@ export class ProductsController {
     return this.productsService.findAll();
   }
 
+  @Get('top-selling')
+  @ApiOperation({
+    summary: 'Get top selling products',
+    description: 'Retrieve the top selling products ordered by sold quantity.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Top selling products retrieved successfully',
+    example: [
+      {
+        product_id: 10,
+        product_name: 'Classic T-Shirt',
+        soldQuantity: 145,
+        category_id: 1,
+        seller_id: 5,
+        product_media: [
+          {
+            media_id: 1,
+            media_url: '/uploads/product-1-main.jpg',
+            media_type: 'image',
+            is_primary: true,
+          },
+        ],
+        product_variants: [
+          {
+            variant_id: 1,
+            sku: 'TS-BLUE-M',
+            color: 'Blue',
+            size: 'M',
+            price: 99.99,
+            stock_quantity: 20,
+          },
+        ],
+      },
+    ],
+  })
+  getTopSelling() {
+    return this.productsService.findTopSelling();
+  }
+
+  @Get(':id/similar')
+  @ApiOperation({
+    summary: 'Get similar products',
+    description: 'Retrieve similar products based on category and price range.',
+  })
+  @ApiParam({
+    name: 'id',
+    type: Number,
+    description: 'Product ID to find similar products for',
+    example: 10,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Similar products retrieved successfully',
+  })
+  getSimilarProducts(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.findSimilarProducts(id);
+  }
+
   @Get(':id')
   @ApiOperation({
     summary: 'Get product details',

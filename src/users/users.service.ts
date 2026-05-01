@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { users_role } from '@prisma/client';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -35,13 +36,13 @@ export class UsersService {
     });
   }
 
-  async create(username: string, email: string, password_hash: string) {
+  async create(username: string, email: string, password_hash: string, role: users_role = 'CUSTOMER') {
     return this.prisma.users.create({
       data: {
         username,
         email,
         password_hash,
-        role: 'CUSTOMER',
+        role,
         status: 'active',
       },
     });

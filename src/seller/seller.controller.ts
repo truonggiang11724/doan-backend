@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Param,
@@ -6,6 +7,10 @@ import {
   UseGuards,
   Request,
   Query,
+  ForbiddenException,
+  Post,
+  Put,
+  Delete,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -98,6 +103,78 @@ export class SellerController {
     return this.sellerService.getSellerProducts(req.user.user_id);
   }
 
+  @Post('products')
+  @ApiOperation({
+    summary: 'Create seller product',
+    description: 'Create a new product for the authenticated seller.',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Seller product created successfully',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - invalid or missing JWT token',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden - only sellers can create products',
+  })
+  async createProduct(@Request() req, @Body() createProductDto: any) {
+    if (req.user.role !== 'SELLER') {
+      throw new ForbiddenException('Only sellers can create products');
+    }
+    return this.sellerService.createSellerProduct(req.user.user_id, createProductDto);
+  }
+
+  @Put('products/:id')
+  @ApiOperation({
+    summary: 'Update seller product',
+    description: 'Update an existing product owned by the authenticated seller.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Seller product updated successfully',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - invalid or missing JWT token',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden - only sellers can update their own products',
+  })
+  async updateProduct(@Request() req, @Param('id', ParseIntPipe) id: number, @Body() updateProductDto: any) {
+    if (req.user.role !== 'SELLER') {
+      throw new ForbiddenException('Only sellers can update products');
+    }
+    return this.sellerService.updateSellerProduct(req.user.user_id, id, updateProductDto);
+  }
+
+  @Delete('products/:id')
+  @ApiOperation({
+    summary: 'Delete seller product',
+    description: 'Delete a product owned by the authenticated seller.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Seller product deleted successfully',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - invalid or missing JWT token',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden - only sellers can delete their own products',
+  })
+  async deleteProduct(@Request() req, @Param('id', ParseIntPipe) id: number) {
+    if (req.user.role !== 'SELLER') {
+      throw new ForbiddenException('Only sellers can delete products');
+    }
+    return this.sellerService.deleteSellerProduct(req.user.user_id, id);
+  }
+
   @Get('orders')
   @ApiOperation({
     summary: 'Get seller orders',
@@ -140,6 +217,34 @@ export class SellerController {
   })
   async getOrders(@Request() req, @Query('status') status?: string, @Query('page') page?: number) {
     return this.sellerService.getSellerOrders(req.user.user_id);
+  }
+
+  @Put('orders/:id/status')
+  @ApiOperation({
+    summary: 'Update seller order status',
+    description: 'Update the status of an order that contains products from the authenticated seller.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Seller order status updated successfully',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - invalid or missing JWT token',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden - seller is not authorized to update this order',
+  })
+  async updateOrderStatus(
+    @Request() req,
+    @Param('id', ParseIntPipe) id: number,
+    @Body('status') status: string,
+  ) {
+    if (req.user.role !== 'SELLER') {
+      throw new ForbiddenException('Only sellers can update order status');
+    }
+    return this.sellerService.updateSellerOrderStatus(req.user.user_id, id, status);
   }
 
   @Get('reviews')

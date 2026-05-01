@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -81,6 +81,89 @@ export class SellerService {
     });
   }
 
+  async createSellerProduct(sellerId: number, createProductDto: any) {
+    const { product_variants, product_media, ...data } = createProductDto;
+    return this.prisma.products.create({
+      data: {
+        ...data,
+        seller_id: sellerId,
+        product_variants: product_variants ? { create: product_variants } : undefined,
+        product_media: product_media ? { create: product_media } : undefined,
+      },
+      include: {
+        product_variants: true,
+        product_media: true,
+        reviews: true,
+        categories: true,
+      },
+    });
+  }
+
+  async updateSellerProduct(sellerId: number, productId: number, updateProductDto: any) {
+    const product = await this.prisma.products.findUnique({
+      where: { product_id: productId },
+    });
+
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+    if (product.seller_id !== sellerId) {
+      throw new ForbiddenException('You are not authorized to update this product');
+    }
+
+    const { product_variants, product_media, ...data } = updateProductDto;
+    return this.prisma.$transaction(async (prisma) => {
+      if (product_variants) {
+        await prisma.product_variants.deleteMany({
+          where: { product_id: productId },
+        });
+      }
+      if (product_media?.length) {
+        await prisma.product_media.deleteMany({
+          where: { product_id: productId },
+        });
+      }
+
+      return prisma.products.update({
+        where: { product_id: productId },
+        data: {
+          ...data,
+          product_variants: product_variants ? { create: product_variants } : undefined,
+          product_media: product_media ? { create: product_media } : undefined,
+        },
+        include: {
+          product_variants: true,
+          product_media: true,
+          reviews: true,
+          categories: true,
+        },
+      });
+    });
+  }
+
+  async deleteSellerProduct(sellerId: number, productId: number) {
+    const product = await this.prisma.products.findUnique({
+      where: { product_id: productId },
+    });
+
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+    if (product.seller_id !== sellerId) {
+      throw new ForbiddenException('You are not authorized to delete this product');
+    }
+
+    return this.prisma.$transaction(async (prisma) => {
+      await prisma.product_media.deleteMany({
+        where: { product_id: productId },
+      });
+      await prisma.product_variants.deleteMany({
+        where: { product_id: productId },
+      });
+      return prisma.products.delete({ where: { product_id: productId } });
+    });
+  }
+
   async getSellerOrders(sellerId: number) {
     const orders = await this.prisma.orders.findMany({
       include: {
@@ -103,6 +186,38 @@ export class SellerService {
         item.product_variants?.products?.seller_id === sellerId
       )
     );
+  }
+
+  async updateSellerOrderStatus(sellerId: number, orderId: number, status: string) {
+    const order = await this.prisma.orders.findUnique({
+      where: { order_id: orderId },
+      include: {
+        order_items: {
+          include: {
+            product_variants: {
+              include: { products: true },
+            },
+          },
+        },
+      },
+    });
+
+    if (!order) {
+      throw new NotFoundException('Order not found');
+    }
+
+    const ownsOrderItem = order.order_items.some(
+      (item) => item.product_variants?.products?.seller_id === sellerId,
+    );
+
+    if (!ownsOrderItem) {
+      throw new ForbiddenException('You are not authorized to update this order');
+    }
+
+    return this.prisma.orders.update({
+      where: { order_id: orderId },
+      data: { order_status: status },
+    });
   }
 
   async getSellerReviews(sellerId: number) {

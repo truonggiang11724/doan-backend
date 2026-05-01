@@ -8,6 +8,16 @@ export class RegisterDto {
   @MinLength(3)
   username!: string;
 
+  @ApiPropertyOptional({ example: 'SELLER', description: 'Account role, use SELLER for seller registration' })
+  @IsOptional()
+  @IsString()
+  role?: string;
+
+  @ApiPropertyOptional({ example: 'My Shop', description: 'Tên cửa hàng của seller' })
+  @IsOptional()
+  @IsString()
+  shop_name?: string;
+
   @ApiProperty({
     example: 'john@example.com',
     description: 'User email address',
